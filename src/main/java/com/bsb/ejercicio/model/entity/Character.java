@@ -9,7 +9,7 @@ public class Character {
    private String history;
    private List<Movie> listMovie;
 
-    public Character(String gabriel, int i, double v, String estudianteProgramación, List<Movie> movie) {
+    public Character(String name, Integer age, Double weight, String history, List<Movie> listMovie) {
         this.name = name;
         this.age = age;
         this.weight = weight;

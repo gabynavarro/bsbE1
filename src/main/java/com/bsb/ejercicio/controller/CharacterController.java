@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 public class CharacterController {
     @GetMapping("/character/{name}")
-    public List<Character> getCharacterName(@PathVariable String name)
+    public Character getCharacterName(@PathVariable String name)
     {
         System.out.println("Controller de name: " +name );
         return CharacterCollections.findName(name);
