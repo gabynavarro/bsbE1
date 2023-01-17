@@ -49,11 +49,13 @@ public class CharacterCollections {
     }
 
     public static List<Character> findByAge(int age) {
-        List<Character> character = addCharacter();
-        if (Validations.validateAgeM0(age) || Validations.validateAgem0(age)) {
+        List<Character> characters = addCharacter();
+        if (!Validations.validateAgeM0(age) || !Validations.validateAgem0(age)) {
             throw new NumberFormatException("The number entered is not valid");
         }
-        return character;
+        return characters.stream()
+                .filter(c -> c.getAge()==age)
+                .collect(Collectors.toList());
     }
 }
 

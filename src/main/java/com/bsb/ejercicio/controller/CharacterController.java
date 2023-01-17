@@ -22,10 +22,10 @@ public class CharacterController {
         return CharacterCollections.getAll();
     }
 
-    @GetMapping("/character/edad")
-    public List<Character> getCharacterAge()
+    @GetMapping("/characters/{age}")
+    public List<Character> getCharacterAge( @PathVariable int age)
     {
-        return CharacterCollections.findByAge(43);
+        return CharacterCollections.findByAge(age);
     }
 
 }
