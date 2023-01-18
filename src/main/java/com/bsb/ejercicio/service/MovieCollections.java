@@ -39,16 +39,21 @@ public class MovieCollections {
 
     }
 
-    /*    public static List<Movie> findByAge(String gender) {
-            List<Movie> movies = Generator.addMovie();
-            if (gender == null&&!Validations.validationString(gender)) {
-                throw new NumberFormatException("Movie name can't be null or contains invalid characters");
-            }
+    public static List<Movie> findByGender(String gender) {
+        List<Movie> movies = Generator.addMovie();
+        if (gender == null && !Validations.validationString(gender)) {
+            throw new NumberFormatException("Movie name can't be null or contains invalid characters");
+        }
+        try {
             return movies.stream()
-                    .filter(m.gender).equalsIgnoreCase(title)
-                    .map(CharacterCollections::characterAddMovie)
+                    .filter(m -> m.getGender().getName().equalsIgnoreCase(gender))
+                    .map(MovieCollections::movieAddCharacter)
                     .collect(Collectors.toList());
-        }*/
+        } catch (Exception e) {
+            throw new RuntimeException(ERROR_NOT_FOUND);
+        }
+    }
+
     public static Movie movieAddCharacter(Movie m) {
         List<Character> c = Generator.addCharacter();
         int nCharacter = (int) (Math.random() * 5 + 1);

@@ -17,10 +17,7 @@ public class CharacterCollections {
             if (name == null && !Validations.validationString(name))
                 throw new NullPointerException("Character name can't be null or contains invalid characters");
             List<Character> characters = Generator.addCharacter();
-            return characters.stream()
-                    .filter(c -> c.getName().equalsIgnoreCase(name))
-                    .map(CharacterCollections::characterAddMovie)
-                    .collect(Collectors.toList());
+            return characters.stream().filter(c -> c.getName().equalsIgnoreCase(name)).map(CharacterCollections::characterAddMovie).collect(Collectors.toList());
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);
         }
@@ -28,9 +25,7 @@ public class CharacterCollections {
 
     public static List<Character> getAll() {
         try {
-            return Generator.addCharacter().stream()
-                    .map(CharacterCollections::characterAddMovie)
-                    .collect(Collectors.toList());
+            return Generator.addCharacter().stream().map(CharacterCollections::characterAddMovie).collect(Collectors.toList());
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);
         }
@@ -42,10 +37,7 @@ public class CharacterCollections {
             throw new NumberFormatException("The number entered is not valid");
         }
         try {
-            return characters.stream()
-                    .filter(c -> c.getAge() == age)
-                    .map(CharacterCollections::characterAddMovie)
-                    .collect(Collectors.toList());
+            return characters.stream().filter(c -> c.getAge() == age).map(CharacterCollections::characterAddMovie).collect(Collectors.toList());
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);
         }

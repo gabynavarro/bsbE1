@@ -3,9 +3,8 @@ package com.bsb.ejercicio.service;
 import com.bsb.ejercicio.model.dto.CharacterResponse;
 import com.bsb.ejercicio.model.dto.MovieResponse;
 import com.bsb.ejercicio.model.entity.Character;
+import com.bsb.ejercicio.model.entity.Gender;
 import com.bsb.ejercicio.model.entity.Movie;
-import com.bsb.ejercicio.model.mapper.CharacterMapper;
-import com.bsb.ejercicio.model.mapper.MovieMapper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,6 +30,14 @@ public class Generator {
             LocalDate.parse("2015-02-15"),
             LocalDate.parse("2013-10-15")};
 
+    public static List<Gender> addGender() {
+        List<Gender> listGender = new ArrayList<>();
+        listGender.add(new Gender("Suspenso"));
+        listGender.add(new Gender("Terror"));
+        listGender.add(new Gender("Suspenso"));
+        listGender.add(new Gender("Comedia"));
+        return listGender;
+    }
 
     public static List<Character> addCharacter() {
         List<Character> colectionCharacter = new ArrayList<>();
@@ -47,11 +54,12 @@ public class Generator {
 
     public static List<Movie> addMovie() {
         List<Movie> listMovie = new ArrayList<>();
+        List<Gender> listGender= addGender();
         List<CharacterResponse> iterator = new ArrayList<>();
-        listMovie.add(new Movie(titleMovie[0], date[0], 3, iterator));
-        listMovie.add(new Movie(titleMovie[1], date[1], 2, iterator));
-        listMovie.add(new Movie(titleMovie[2], date[2], 5, iterator));
-        listMovie.add(new Movie(titleMovie[3], date[3], 4, iterator));
+        listMovie.add(new Movie(titleMovie[0], date[0], 3, iterator,listGender.get(0)));
+        listMovie.add(new Movie(titleMovie[1], date[1], 2, iterator,listGender.get(1)));
+        listMovie.add(new Movie(titleMovie[2], date[2], 5, iterator,listGender.get(2)));
+        listMovie.add(new Movie(titleMovie[3], date[3], 4, iterator,listGender.get(3)));
         return listMovie;
     }
 }

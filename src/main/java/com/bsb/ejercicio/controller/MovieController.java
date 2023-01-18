@@ -20,9 +20,9 @@ public class MovieController {
         return MovieCollections.getAll();
     }
 
-/*    @GetMapping("/movie/{gender}")
-    public Movie getMovieGender( @PathVariable String gender)
+    @GetMapping("/movie/gender/{gender}")
+    public List<Movie> getMovieGender( @PathVariable String gender)
     {
-        return MovieCollections.findTitle(gender);
-    }*/
+        return MovieCollections.findByGender(gender);
+    }
 }
