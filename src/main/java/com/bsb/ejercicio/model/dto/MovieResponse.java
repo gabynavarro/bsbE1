@@ -1,21 +1,22 @@
-package com.bsb.ejercicio.model.entity;
+package com.bsb.ejercicio.model.dto;
 
-import com.bsb.ejercicio.model.dto.CharacterResponse;
+import com.bsb.ejercicio.model.entity.Movie;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class Movie {
+public class MovieResponse {
     private String title;
     private LocalDate date;
     private int score;
-    private List<CharacterResponse> character;
 
-    public Movie(String title, LocalDate date, int score, List<CharacterResponse> character) {
+    public MovieResponse(String title, LocalDate date, int score) {
         this.title = title;
         this.date = date;
         this.score = score;
-        this.character = character;
+    }
+
+    public MovieResponse() {
+
     }
 
     public String getTitle() {
@@ -42,11 +43,4 @@ public class Movie {
         this.score = score;
     }
 
-    public List<CharacterResponse> getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(List<CharacterResponse> character) {
-        this.character = character;
-    }
 }

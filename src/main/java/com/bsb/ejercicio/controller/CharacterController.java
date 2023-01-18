@@ -11,20 +11,17 @@ import java.util.List;
 @RestController
 public class CharacterController {
     @GetMapping("/character/{name}")
-    public Character getCharacterName(@PathVariable String name)
-    {
-        System.out.println("Controller de name: " +name );
+    public List<Character> getCharacterName(@PathVariable String name) {
         return CharacterCollections.findName(name);
     }
+
     @GetMapping("/character")
-    public List<Character> getCharacterName()
-    {
+    public List<Character> getCharacterName() {
         return CharacterCollections.getAll();
     }
 
     @GetMapping("/characters/{age}")
-    public List<Character> getCharacterAge( @PathVariable int age)
-    {
+    public List<Character> getCharacterAge(@PathVariable int age) {
         return CharacterCollections.findByAge(age);
     }
 

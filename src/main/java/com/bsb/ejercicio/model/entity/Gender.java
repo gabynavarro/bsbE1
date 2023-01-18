@@ -3,8 +3,8 @@ package com.bsb.ejercicio.model.entity;
 import java.util.List;
 
 public class Gender {
-   private String name;
-   private List<Movie> movie;
+    private String name;
+    private List<Movie> movie;
 
     public Gender(String name, List<Movie> movie) {
         this.name = name;
