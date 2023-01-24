@@ -3,10 +3,28 @@ package com.bsb.ejercicio.model.entity;
 import java.util.List;
 
 public class Gender {
+    private Long id;
     private String name;
 
     public Gender(String name) {
         this.name = name;
+    }
+
+    public Gender(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Gender() {
+
     }
 
     public String getName() {

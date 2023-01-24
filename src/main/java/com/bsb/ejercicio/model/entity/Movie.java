@@ -6,31 +6,36 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Movie {
+    private Long id;
     private String title;
     private LocalDate date;
     private int score;
     private List<CharacterResponse> character;
     private Gender gender;
-
-
-    public Movie(String title, LocalDate date, int score, List<CharacterResponse> character, Gender gender) {
+    public Movie(Long id, String title, LocalDate date, int score, List<CharacterResponse> character, Gender gender) {
+        this.id = id;
         this.title = title;
         this.date = date;
         this.score = score;
         this.character = character;
         this.gender = gender;
+
+    }
+
+    public Movie() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public void setTitle(String title) {
@@ -60,4 +65,13 @@ public class Movie {
     public void setCharacter(List<CharacterResponse> character) {
         this.character = character;
     }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
 }
