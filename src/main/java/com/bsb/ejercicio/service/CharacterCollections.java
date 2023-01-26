@@ -80,7 +80,7 @@ public class CharacterCollections {
     public static Character update(Long id, Character character) {
         try {
             Character c = findById(id);
-            if(!Validations.validateCharacterEntity(character))
+            if(Validations.validateCharacterEntity(character))
                 throw new RuntimeException(ERROR_NOT_VALIDATE);
             if (c!=null) {
                 c.setName(character.getName());

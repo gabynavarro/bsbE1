@@ -95,8 +95,9 @@ public class MovieCollections {
     public static Movie update(Long id, Movie movie) {
         try {
             Movie m = findById(id);
-            if(!Validations.validateMovieEntity(movie))
+            if(Validations.validateMovieEntity(movie))
                 throw new RuntimeException(ERROR_NOT_VALIDATE);
+
             if (m!=null) {
                 m.setTitle(movie.getTitle());
                 m.setDate(movie.getDate());
