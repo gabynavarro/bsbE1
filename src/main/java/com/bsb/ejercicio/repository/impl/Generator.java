@@ -1,4 +1,4 @@
-package com.bsb.ejercicio.repository;
+package com.bsb.ejercicio.repository.impl;
 
 import com.bsb.ejercicio.model.entity.Character;
 import com.bsb.ejercicio.model.entity.Gender;
@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+@Deprecated
 public class Generator {
     private static final String[] nameCharater = {"Robert-Downey", "Chris-Evans", "Chris-Hemsworth",
             "Paul-Rudd", "Michael-Douglas",
@@ -30,15 +31,15 @@ public class Generator {
             LocalDate.parse("2013-10-15")};
 
     public static List<Gender> addGender() {
-        return Arrays.asList(new Gender(1L, "Suspenso"),
+        return Arrays.asList(
+                new Gender(1L, "Suspenso"),
                 new Gender(2L, "Terror"),
                 new Gender(3L, "Suspenso"),
-                new Gender(4L, "Comedia")
-        );
+                new Gender(4L, "Comedia"));
     }
 
 
-  /*  public static List<Character> addCharacter() {
+    public static List<Character> addCharacter() {
         return Arrays.asList(
                 new Character(1L, nameCharater[0], 63, 65.5, descriptionCharacter[0],
                         Arrays.asList(
@@ -66,13 +67,13 @@ public class Generator {
                         Arrays.asList(
                                 new Movie(titleMovie[3], date[3], 5)))
         );
-    }*/
+    }
 
     public static List<Movie> addMovie() {
         List<Gender> listGender = addGender();
 
         return Arrays.asList(
-              /*  new Movie(1L, titleMovie[0], date[0], 3,
+                new Movie(1L, titleMovie[0], date[0], 3,
                         Arrays.asList(new Character(nameCharater[0]), new Character(nameCharater[1]), new Character(nameCharater[2])),
                         listGender.get(0)),
                 new Movie(2L, titleMovie[1], date[1], 2,
@@ -83,7 +84,7 @@ public class Generator {
                         listGender.get(2)),
                 new Movie(4L, titleMovie[3], date[3], 4,
                         Arrays.asList(new Character(nameCharater[5]), new Character(nameCharater[6])),
-                        listGender.get(3))*/
+                        listGender.get(3))
         );
     }
 }

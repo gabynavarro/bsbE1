@@ -1,8 +1,7 @@
 package com.bsb.ejercicio.service;
 
-import com.bsb.ejercicio.model.entity.Character;
 import com.bsb.ejercicio.model.request.CharacterRequest;
-import com.bsb.ejercicio.model.response.CharacterResponse;
+import com.bsb.ejercicio.model.response.character.CharacterResponse;
 
 import java.util.List;
 

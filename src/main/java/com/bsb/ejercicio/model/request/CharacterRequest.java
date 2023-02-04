@@ -15,7 +15,7 @@ public class CharacterRequest {
     private Integer age;
     private Double weight;
     private String history;
-    private List<Integer> listMovie;
+    private List<String> listMovies;
 
 
 }

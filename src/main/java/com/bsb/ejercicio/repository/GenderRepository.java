@@ -5,7 +5,7 @@ import com.bsb.ejercicio.model.entity.Gender;
 import java.util.List;
 
 public interface GenderRepository {
-    List<Gender> getAll();
+    List<Gender> getGenderAll();
 
     List<Gender> genderCreate(Gender gender);
 

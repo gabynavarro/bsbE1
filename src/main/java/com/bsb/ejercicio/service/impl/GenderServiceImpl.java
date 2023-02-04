@@ -1,6 +1,8 @@
 package com.bsb.ejercicio.service.impl;
 
 import com.bsb.ejercicio.model.entity.Gender;
+import com.bsb.ejercicio.model.mappers.GenderMapper;
+import com.bsb.ejercicio.model.response.GenderResponse;
 import com.bsb.ejercicio.repository.GenderRepository;
 import com.bsb.ejercicio.service.IGenderService;
 import com.bsb.ejercicio.validations.Validations;
@@ -8,49 +10,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GenderServiceImpl implements IGenderService {
     private  final String ERROR_NOT_FOUND = "An error occurred in the process";
     @Autowired
     private GenderRepository genderRepository;
-
+    @Autowired
+    private GenderMapper genderMapper;
     @Override
-    public List<Gender> getAll() {
+    public List<GenderResponse> getAll() {
         try {
-            return genderRepository.getAll();
+            return converTo(genderRepository.getGenderAll());
+        } catch (Exception e) {
+            throw new RuntimeException(ERROR_NOT_FOUND);
+        }
+    }
+    private List<GenderResponse> converTo(List<Gender> list) {       //borrar
+        return list.stream()
+                .map(g -> genderMapper.toResponse(g))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<GenderResponse> genderCreate(Gender gender) {
+        try {
+            return converTo(genderRepository.genderCreate(gender));
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);
         }
     }
 
     @Override
-    public List<Gender> genderCreate(Gender gender) {
+    public GenderResponse findById(Long id) {
         try {
-            return genderRepository.genderCreate(gender);
+            return  genderMapper.toResponse(genderRepository.findById(id));
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);
         }
     }
 
     @Override
-    public Gender findById(Long id) {
-        try {
-            return genderRepository.findById(id);
-        } catch (Exception e) {
-            throw new RuntimeException(ERROR_NOT_FOUND);
-        }
-    }
-
-    @Override
-    public Gender update(Long id, Gender gender) {
+    public GenderResponse update(Long id, Gender gender) {
         try {
             Gender m = genderRepository.findById(id);
             if (!Validations.validationString(gender.getName()))
                 throw new RuntimeException("He entered an invalid name");
             if (m != null) {
                 m.setName(gender.getName());
-                return m;
+                return  genderMapper.toResponse(m);
             } else throw new NullPointerException("The id entered is incorrect or deleted");
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);

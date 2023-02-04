@@ -1,7 +1,6 @@
 package com.bsb.ejercicio.repository;
 
 import com.bsb.ejercicio.model.entity.Character;
-import com.bsb.ejercicio.model.response.CharacterResponse;
 
 import java.util.List;
 

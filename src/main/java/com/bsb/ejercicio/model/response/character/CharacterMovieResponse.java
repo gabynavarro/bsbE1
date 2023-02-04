@@ -1,4 +1,4 @@
-package com.bsb.ejercicio.model.response;
+package com.bsb.ejercicio.model.response.character;
 
 import lombok.Builder;
 import lombok.Getter;

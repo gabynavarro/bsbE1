@@ -1,7 +1,7 @@
 package com.bsb.ejercicio.controller;
 
 import com.bsb.ejercicio.model.request.CharacterRequest;
-import com.bsb.ejercicio.model.response.CharacterResponse;
+import com.bsb.ejercicio.model.response.character.CharacterResponse;
 import com.bsb.ejercicio.service.ICharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,7 @@ public class CharacterController {
         return ResponseEntity.status(HttpStatus.OK).body(characterService.characterCreate(character));
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<CharacterResponse> update(
             @RequestBody CharacterRequest character,
             @PathVariable Long id) {

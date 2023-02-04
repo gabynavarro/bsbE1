@@ -1,6 +1,7 @@
-package com.bsb.ejercicio.model.response;
+package com.bsb.ejercicio.model.response.movie;
 
 
+import com.bsb.ejercicio.model.response.GenderResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -4,11 +4,10 @@ import com.bsb.ejercicio.model.entity.Character;
 import com.bsb.ejercicio.model.entity.Movie;
 import com.bsb.ejercicio.model.mappers.CharacterMapper;
 import com.bsb.ejercicio.model.request.CharacterRequest;
-import com.bsb.ejercicio.model.response.CharacterResponse;
+import com.bsb.ejercicio.model.response.character.CharacterResponse;
 import com.bsb.ejercicio.repository.CharacterRepository;
 import com.bsb.ejercicio.repository.MovieRepository;
 import com.bsb.ejercicio.service.ICharacterService;
-import com.bsb.ejercicio.service.IMovieService;
 import com.bsb.ejercicio.validations.Validations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,7 @@ public class CharacterServiceImpl implements ICharacterService {
     @Autowired
     private CharacterMapper characterMapper;
     @Autowired
-    private IMovieService movieService;
+    private MovieRepository movieRepository;
 
     private List<CharacterResponse> converTo(List<Character> list) {       //borrar
         return list.stream()
@@ -80,19 +79,21 @@ public class CharacterServiceImpl implements ICharacterService {
 
     @Override
     public List<CharacterResponse> characterCreate(CharacterRequest character) {
+        List<Movie> listMovie=new ArrayList<>();
         try {
             if (!Validations.validateCharacterEntity(character))
                 throw new RuntimeException(ERROR_NOT_VALIDATE);
 
             Character c = characterMapper.toCharacter(character);
-            if (c.getListMovie() == null) {
-                c.setListMovie(new ArrayList<>());
-            }else{
-                /*Long n= Long.valueOf(character.getListMovie().get(0));
-                Movie m=movieService.findById(n);
-                System.out.println(m.getTitle());*/
-             //   c.setListMovie(new ArrayList<>());
+            for (String  m: character.getListMovies() ) {
+                Movie movie= movieRepository.findById(Long.valueOf(m));
+                if(movie!=null){
+                    listMovie.add(movie);
+                }
             }
+            if (listMovie.isEmpty()){
+                c.setListMovie(new ArrayList<>());
+            }else c.setListMovie(listMovie);
 
             return this.converTo(characterRepository.characterCreate(c));
         } catch (Exception e) {
@@ -113,7 +114,7 @@ public class CharacterServiceImpl implements ICharacterService {
     public CharacterResponse update(Long id, CharacterRequest character) {
         try {
             Character c = characterRepository.findById(id);
-            if (Validations.validateCharacterEntity(character))
+            if (!Validations.validateCharacterEntity(character))
                 throw new RuntimeException(ERROR_NOT_VALIDATE);
             if (c != null) {
                 c.setName(character.getName());

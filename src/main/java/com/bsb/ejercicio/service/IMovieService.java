@@ -1,7 +1,7 @@
 package com.bsb.ejercicio.service;
 
 import com.bsb.ejercicio.model.request.MovieRequest;
-import com.bsb.ejercicio.model.response.MovieResponse;
+import com.bsb.ejercicio.model.response.movie.MovieResponse;
 
 import java.time.LocalDate;
 import java.util.List;

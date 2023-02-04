@@ -2,8 +2,8 @@ package com.bsb.ejercicio.model.mappers;
 
 import com.bsb.ejercicio.model.entity.Character;
 import com.bsb.ejercicio.model.request.CharacterRequest;
-import com.bsb.ejercicio.model.response.CharacterResponse;
-import com.bsb.ejercicio.model.response.MovieCharacterResponse;
+import com.bsb.ejercicio.model.response.character.CharacterResponse;
+import com.bsb.ejercicio.model.response.movie.MovieCharacterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

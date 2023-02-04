@@ -1,7 +1,7 @@
 package com.bsb.ejercicio.controller;
 
 import com.bsb.ejercicio.model.request.MovieRequest;
-import com.bsb.ejercicio.model.response.MovieResponse;
+import com.bsb.ejercicio.model.response.movie.MovieResponse;
 import com.bsb.ejercicio.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
