@@ -80,9 +80,12 @@ public class CharacterServiceImpl implements ICharacterService {
     @Override
     public List<CharacterResponse> characterCreate(CharacterRequest character) {
         List<Movie> listMovie=new ArrayList<>();
+        if(!characterRepository.findName(character.getName()).isEmpty()){
+            throw new RuntimeException("Character exist!");
+        }
+        if (!Validations.validateCharacterEntity(character))
+            throw new RuntimeException(ERROR_NOT_VALIDATE);
         try {
-            if (!Validations.validateCharacterEntity(character))
-                throw new RuntimeException(ERROR_NOT_VALIDATE);
 
             Character c = characterMapper.toCharacter(character);
             for (String  m: character.getListMovies() ) {

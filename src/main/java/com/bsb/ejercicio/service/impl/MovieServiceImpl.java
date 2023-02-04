@@ -91,11 +91,13 @@ public class MovieServiceImpl implements IMovieService {
     @Override
     public List<MovieResponse> movieCreate(MovieRequest movie) {
         List<Character> listCharacter=new ArrayList<>();
+        if (!Validations.validateMovieEntity(movie))
+            throw new RuntimeException(ERROR_NOT_VALIDATE);
+        if(!movieRepository.findTitle(movie.getTitle()).isEmpty()){
+            throw new RuntimeException("Movie exist!");
+        }
         try {
-            if (!Validations.validateMovieEntity(movie))
-                throw new RuntimeException(ERROR_NOT_VALIDATE);
             Movie m = movieMapper.toEntity(movie);
-
             for (String  c: movie.getIdCharacters()) {
                 Character  character = characterRepository.findById(Long.valueOf(c));
                 if(character!=null){
@@ -124,11 +126,10 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public MovieResponse update(Long id, MovieRequest movie) {
+        if (!Validations.validateMovieEntity(movie))
+            throw new RuntimeException(ERROR_NOT_VALIDATE);
         try {
             Movie m = movieRepository.findById(id);
-            if (!Validations.validateMovieEntity(movie))
-                throw new RuntimeException(ERROR_NOT_VALIDATE);
-
             if (m != null) {
                 m.setTitle(movie.getTitle());
                 m.setDate(movie.getDate());

@@ -2,6 +2,7 @@ package com.bsb.ejercicio.service.impl;
 
 import com.bsb.ejercicio.model.entity.Gender;
 import com.bsb.ejercicio.model.mappers.GenderMapper;
+import com.bsb.ejercicio.model.request.GenderRequest;
 import com.bsb.ejercicio.model.response.GenderResponse;
 import com.bsb.ejercicio.repository.GenderRepository;
 import com.bsb.ejercicio.service.IGenderService;
@@ -33,9 +34,10 @@ public class GenderServiceImpl implements IGenderService {
                 .collect(Collectors.toList());
     }
     @Override
-    public List<GenderResponse> genderCreate(Gender gender) {
+    public List<GenderResponse> genderCreate(GenderRequest gender) {
         try {
-            return converTo(genderRepository.genderCreate(gender));
+            Gender g=genderMapper.toEntity(gender);
+            return converTo(genderRepository.genderCreate(g));
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);
         }
@@ -51,7 +53,7 @@ public class GenderServiceImpl implements IGenderService {
     }
 
     @Override
-    public GenderResponse update(Long id, Gender gender) {
+    public GenderResponse update(Long id, GenderRequest gender) {
         try {
             Gender m = genderRepository.findById(id);
             if (!Validations.validationString(gender.getName()))

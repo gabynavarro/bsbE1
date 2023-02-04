@@ -25,9 +25,9 @@ public class GenderRepositoryImpl implements GenderRepository{
 
     @Override
     public List<Gender> genderCreate(Gender gender) {
-        List<Gender> genders = this.addGender();
+        List<Gender> genders = getGenderAll();
         gender.setId((long) (genders.size() + 1));
-        genders.add(gender);
+        genders.add(genders.size(), gender);
         return genders;
     }
 

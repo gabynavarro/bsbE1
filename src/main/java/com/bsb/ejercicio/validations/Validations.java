@@ -9,6 +9,9 @@ public class Validations {
     public static boolean validationString(String text) {
         return text.matches("^[a-zA-Z]+$");
     }
+    public static String validationStringSpacing(String text) {
+        return text.replaceAll("\\s","");
+    }
 
     public static boolean validateAgeM0(int age) {
         return age > 0;
@@ -18,7 +21,7 @@ public class Validations {
         return age < 120;
     }
     public static boolean validateMovieEntity(MovieRequest movie){
-        if(!validationString(movie.getTitle())) return true;
+        if(validationString(movie.getTitle())) return true;
         if(movie.getScore()<0&&movie.getScore()>5) return true;
         return false;
     } public static boolean validateCharacterEntity(CharacterRequest character){
