@@ -1,7 +1,8 @@
 package com.bsb.ejercicio.model.entity;
 
-import java.util.List;
+import lombok.Builder;
 
+@Builder
 public class Gender {
     private Long id;
     private String name;

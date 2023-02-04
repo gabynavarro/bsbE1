@@ -1,7 +1,9 @@
 package com.bsb.ejercicio.controller;
 
-import com.bsb.ejercicio.model.entity.Movie;
-import com.bsb.ejercicio.service.MovieCollections;
+import com.bsb.ejercicio.model.request.MovieRequest;
+import com.bsb.ejercicio.model.response.MovieResponse;
+import com.bsb.ejercicio.service.IMovieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,47 +15,49 @@ import java.util.List;
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
+    @Autowired
+    private IMovieService movieService;
     @GetMapping("title")
-    public ResponseEntity<List<Movie>> getMovieTitle(@RequestParam(name = "title", required = false) String title) {
-        return ResponseEntity.status(HttpStatus.OK).body(MovieCollections.findTitle(title));
+    public ResponseEntity<List<MovieResponse>> getMovieTitle(@RequestParam(name = "title", required = false) String title) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.findTitle(title));
     }
 
     @GetMapping
-    public ResponseEntity<List<Movie>> getMovieAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(MovieCollections.getAll());
+    public ResponseEntity<List<MovieResponse>> getMovieAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.getAll());
     }
 
     @GetMapping("{gender}")
-    public ResponseEntity<List<Movie>> getMovieGender(@PathVariable String gender) {
-        return ResponseEntity.status(HttpStatus.OK).body(MovieCollections.findByGender(gender));
+    public ResponseEntity<List<MovieResponse>> getMovieGender(@PathVariable String gender) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.findByGender(gender));
     }
 
     @GetMapping("date")
-    public ResponseEntity<List<Movie>> getMovieGender(
+    public ResponseEntity<List<MovieResponse>> getMovieGender(
             @RequestParam(value = "from", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate from,
             @RequestParam(value = "to", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate to
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(MovieCollections.findByDate(from, to));
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.findByDate(from, to));
     }
 
     @GetMapping("score")
-    public ResponseEntity<List<Movie>> getMovieGender(
+    public ResponseEntity<List<MovieResponse>> getMovieGender(
             @RequestParam(value = "from", required = true) int from,
             @RequestParam(value = "to", required = true) int to
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(MovieCollections.findByScore(from, to));
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.findByScore(from, to));
     }
 
     @PostMapping()
-    public ResponseEntity<List<Movie>> movieAdd(
-            @RequestBody Movie movie) {
-        return ResponseEntity.status(HttpStatus.OK).body(MovieCollections.movieCreate(movie));
+    public ResponseEntity<List<MovieResponse>> movieAdd(
+            @RequestBody MovieRequest movie) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.movieCreate(movie));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Movie> update(
-            @RequestBody Movie movie,
+    public ResponseEntity<MovieResponse> update(
+            @RequestBody MovieRequest movie,
             @PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(MovieCollections.update(id, movie));
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.update(id, movie));
     }
 }
