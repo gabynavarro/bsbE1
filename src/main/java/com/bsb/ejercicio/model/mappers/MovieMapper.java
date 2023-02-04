@@ -28,8 +28,6 @@ public class MovieMapper {
                 .title(movie.getTitle())
                 .date(movie.getDate())
                 .score(movie.getScore())
-                .gender(null)
-                .character(null)
                 .build();
     }
 

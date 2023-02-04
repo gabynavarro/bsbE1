@@ -1,9 +1,13 @@
 package com.bsb.ejercicio.service.impl;
 
+import com.bsb.ejercicio.model.entity.Character;
+import com.bsb.ejercicio.model.entity.Gender;
 import com.bsb.ejercicio.model.entity.Movie;
 import com.bsb.ejercicio.model.mappers.MovieMapper;
 import com.bsb.ejercicio.model.request.MovieRequest;
 import com.bsb.ejercicio.model.response.movie.MovieResponse;
+import com.bsb.ejercicio.repository.CharacterRepository;
+import com.bsb.ejercicio.repository.GenderRepository;
 import com.bsb.ejercicio.repository.MovieRepository;
 import com.bsb.ejercicio.service.IMovieService;
 import com.bsb.ejercicio.validations.Validations;
@@ -11,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +26,10 @@ public class MovieServiceImpl implements IMovieService {
     private static final String ERROR_NOT_VALIDATE = "The data entered contains erroneous information";
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private CharacterRepository characterRepository;
+    @Autowired
+    private GenderRepository genderRepository;
     @Autowired
     private MovieMapper movieMapper;
     private List<MovieResponse> converTo(List<Movie> list) {       //borrar
@@ -81,10 +90,23 @@ public class MovieServiceImpl implements IMovieService {
 
     @Override
     public List<MovieResponse> movieCreate(MovieRequest movie) {
+        List<Character> listCharacter=new ArrayList<>();
         try {
             if (!Validations.validateMovieEntity(movie))
                 throw new RuntimeException(ERROR_NOT_VALIDATE);
-            return converTo(movieRepository.movieCreate(movieMapper.toEntity(movie)));
+            Movie m = movieMapper.toEntity(movie);
+
+            for (String  c: movie.getIdCharacters()) {
+                Character  character = characterRepository.findById(Long.valueOf(c));
+                if(character!=null){
+                    listCharacter.add(character);
+                }
+            }
+            if (listCharacter.isEmpty()){
+                m.setCharacter(new ArrayList<>());
+            }else m.setCharacter(listCharacter);
+            m.setGender(genderRepository.findById(movie.getGender()));
+            return converTo(movieRepository.movieCreate(m));
         } catch (Exception e) {
             throw new RuntimeException(ERROR_NOT_FOUND);
         }
@@ -104,7 +126,7 @@ public class MovieServiceImpl implements IMovieService {
     public MovieResponse update(Long id, MovieRequest movie) {
         try {
             Movie m = movieRepository.findById(id);
-            if (Validations.validateMovieEntity(movie))
+            if (!Validations.validateMovieEntity(movie))
                 throw new RuntimeException(ERROR_NOT_VALIDATE);
 
             if (m != null) {

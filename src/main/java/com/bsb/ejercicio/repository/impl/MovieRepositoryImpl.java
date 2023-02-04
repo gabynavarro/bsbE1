@@ -95,9 +95,9 @@ public class MovieRepositoryImpl implements MovieRepository {
     }
     @Override
     public List<Movie> movieCreate(Movie movie) {
-        List<Movie> movies = this.addMovie();
+        List<Movie> movies = getAll();
         movie.setId((long) (movies.size() + 1));
-        movies.add(movie);
+        movies.add(movies.size(),movie);
         return movies;
     }
 

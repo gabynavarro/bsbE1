@@ -14,4 +14,6 @@ public class MovieRequest {
     private String title;
     private LocalDate date;
     private int score;
+    private List<String> idCharacters;
+    private long gender;
 }
